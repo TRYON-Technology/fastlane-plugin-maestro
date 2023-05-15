@@ -11,24 +11,26 @@ module Fastlane
 
         command = [maestro_path]
 
-        command.push("test")
-        
         unless options[:device].empty? || options[:device].nil?
           command.push("--device", options[:device])
         end
-
+        
+        command.push("test")
+        
+        unless options[:env_vars].empty? || options[:env_vars].nil?
+          options[:env_vars].each do |key, value|
+            command.push("-e", "#{key}=\"#{value}\"")
+          end
+        end
+        
         unless options[:report_type].empty? || options[:report_type].nil?
           command.push("--format", options[:report_type])
         end
+        
         unless options[:output].empty? || options[:output].nil?
           command.push("--output", options[:output])
           # Make sure that the output folder is available
           FileUtils.mkdir_p(File.dirname(options[:output]))
-        end
-        unless options[:env_vars].empty? || options[:env_vars].nil?
-          options[:env_vars].each do |key, value|
-            command.push("-e", "#{key}='#{value}'")
-          end
         end
 
         command.push("#{options[:tests]}")
