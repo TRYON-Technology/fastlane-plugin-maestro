@@ -11,11 +11,11 @@ module Fastlane
 
         command = [maestro_path]
 
+        command.push("test")
+        
         unless options[:device].empty? || options[:device].nil?
           command.push("--device", options[:device])
         end
-
-        command.push("test")
 
         unless options[:report_type].empty? || options[:report_type].nil?
           command.push("--format", options[:report_type])
@@ -27,7 +27,7 @@ module Fastlane
         end
         unless options[:env_vars].empty? || options[:env_vars].nil?
           options[:env_vars].each do |key, value|
-            command.push("-e", "#{key}=\"#{value}\"")
+            command.push("-e", "#{key}='#{value}'")
           end
         end
 
