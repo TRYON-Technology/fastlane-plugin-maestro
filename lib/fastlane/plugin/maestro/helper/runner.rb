@@ -27,7 +27,7 @@ module Fastlane
         end
         unless options[:env_vars].empty? || options[:env_vars].nil?
           options[:env_vars].each do |key, value|
-            command.push("-e", "#{key}=#{value}")
+            command.push("-e", "#{key}=\"#{value}\"")
           end
         end
 
